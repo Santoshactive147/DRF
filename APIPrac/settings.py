@@ -142,3 +142,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',  # Optionally require authentication
     ],
 }
+
+
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server (example: Gmail)
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'santosh.activeneurons@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'Ghansoli@7710'  # Your email password
+DEFAULT_FROM_EMAIL = 'santosh'  # Default email address
