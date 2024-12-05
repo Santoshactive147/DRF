@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 # Hello
-#Helloooo
+#Helloooo0
 WSGI_APPLICATION = 'APIPrac.wsgi.application'
 
 
