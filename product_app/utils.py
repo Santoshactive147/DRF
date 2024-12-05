@@ -30,5 +30,6 @@ def send_welcome_email(user_email, user_name):
         message,
         settings.DEFAULT_FROM_EMAIL,  # Default email address
         [user_email],
+        html_message=message,
         fail_silently=False,
     )

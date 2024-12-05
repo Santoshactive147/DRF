@@ -61,7 +61,7 @@ ROOT_URLCONF = 'APIPrac.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'product_app', 'templates')], 
+        'DIRS': [ BASE_DIR / 'templates',], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,14 +147,14 @@ REST_FRAMEWORK = {
 
 # settings.py
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # SMTP server (example: Gmail)
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'santosh.activeneurons@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'Ghansoli@7710'  # Your email password
+EMAIL_HOST_PASSWORD = 'yehy lapo xxjg pnuq'  # Your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'  # For Gmail
@@ -163,3 +163,60 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # EMAIL_HOST_USER = 'your_email@gmail.com'
 # EMAIL_HOST_PASSWORD = 'your_email_password'
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+# settings.py
+
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "verbose": {
+#             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+#             "style": "{",
+#         },
+#         "simple": {
+#             "format": "{levelname} {message}",
+#             "style": "{",
+#         },
+#     },
+#     "filters": {
+#         "special": {
+#             "()": "project.logging.SpecialFilter",
+#             "foo": "bar",
+#         },
+#         "require_debug_true": {
+#             "()": "django.utils.log.RequireDebugTrue",
+#         },
+#     },
+#     "handlers": {
+#         "console": {
+#             "level": "INFO",
+#             "filters": ["require_debug_true"],
+#             "class": "logging.StreamHandler",
+#             "formatter": "simple",
+#         },
+#         "mail_admins": {
+#             "level": "ERROR",
+#             "class": "django.utils.log.AdminEmailHandler",
+#             "filters": ["special"],
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["console"],
+#             "propagate": True,
+#         },
+#         "django.request": {
+#             "handlers": ["mail_admins"],
+#             "level": "ERROR",
+#             "propagate": False,
+#         },
+#         "myapp.custom": {
+#             "handlers": ["console", "mail_admins"],
+#             "level": "INFO",
+#             "filters": ["special"],
+#         },
+#     },
+# }

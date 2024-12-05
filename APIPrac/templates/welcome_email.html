@@ -1,0 +1,50 @@
+<!-- templates/welcome_email.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user_name }}!</h1>
+        <p>Thank you for registering with us. We're excited to have you on board!</p>
+        <p>If you have any questions or need support, feel free to reach out to us at any time.</p>
+        <p>We look forward to providing you with an excellent experience!</p>
+
+        <div class="footer">
+            <p>&copy; 2024 Your Platform. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
