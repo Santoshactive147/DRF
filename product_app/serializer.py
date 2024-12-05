@@ -67,7 +67,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'confirm_password']
+        fields = ['username', 'email', 'password', '  ']
 
     def validate(self, data):
         """
@@ -92,29 +92,3 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         )
         return user
 
-# Step 2: Create the RegisterUserView class for handling registration requests
-class RegisterUserView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        """
-        Handle the user registration.
-        """
-        serializer = RegisterUserSerializer(data=request.data)
-
-        # Validate and save the user if the serializer is valid
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response(
-                {
-                    "message": "User registered successfully",
-                    "user": {
-                        "username": user.username,
-                        "email": user.email
-                    }
-                },
-                status=status.HTTP_201_CREATED
-            )
-        
-        # If serializer is invalid, return validation errors
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
