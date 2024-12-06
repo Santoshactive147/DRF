@@ -1,0 +1,2 @@
+DEBUG 2024-12-06 15:06:38,113 This is a test DEBUG log message.
+DEBUG 2024-12-06 15:06:54,145 This is a test DEBUG log message.

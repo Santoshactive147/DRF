@@ -181,21 +181,21 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #             "style": "{",
 #         },
 #     },
-#     "filters": {
-#         "special": {
-#             "()": "project.logging.SpecialFilter",
-#             "foo": "bar",
-#         },
-#         "require_debug_true": {
-#             "()": "django.utils.log.RequireDebugTrue",
-#         },
-#     },
+#     # "filters": {
+#     #     "special": {
+#     #         "()": "project.logging.SpecialFilter",
+#     #         "foo": "bar",
+#     #     },
+#     #     "require_debug_true": {
+#     #         "()": "django.utils.log.RequireDebugTrue",
+#     #     },
+#     # },
 #     "handlers": {
 #         "console": {
 #             "level": "INFO",
 #             "filters": ["require_debug_true"],
 #             "class": "logging.StreamHandler",
-#             "formatter": "simple",
+#             "formatter": "verobose",
 #         },
 #         "mail_admins": {
 #             "level": "ERROR",
@@ -213,10 +213,119 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #             "level": "ERROR",
 #             "propagate": False,
 #         },
-#         "myapp.custom": {
+#         "product_app.custom": {
 #             "handlers": ["console", "mail_admins"],
 #             "level": "INFO",
 #             "filters": ["special"],
 #         },
 #     },
+    
 # }
+# import colorlog
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '{levelname} {asctime} {message}',
+#             'style': '{',
+#         },
+#         'simple': {
+#             'format': '{levelname} {message}',
+#             'style': '{',
+#         },
+#         'colored': {
+#             '()': 'colorlog.ColoredFormatter',
+#             'format': '%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s',
+#             'log_colors': {
+#                 'DEBUG': 'cyan',
+#                 'INFO': 'green',
+#                 'WARNING': 'yellow',
+#                 'ERROR': 'red',
+#                 'CRITICAL': 'bold_red',
+#             },
+#      }
+
+#     },
+    
+     
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',  # Minimum level of logs to capture in the file
+#             'class': 'logging.FileHandler',
+#             'filename': 'C:/Users/santo/Desktop/Santosh/DRF/APIPrac/erro_log.txt',  # Specify the file where logs will be saved
+#             'formatter': 'verbose'  # Optional: Use a custom formatter if needed
+            
+#         },
+#     'console': {
+#     'level': 'INFO',
+#     'class': 'logging.StreamHandler',
+#     'formatter': 'colored'
+# },
+#     },
+#     'loggers': {
+#         'product_app': {
+#             'handlers': ['file','console'],  # Attach the file handler to the django logger
+#             'level': 'DEBUG',  # Minimum level of logs to capture
+#             'propagate': True,
+#         },
+#     },
+# }
+
+import colorlog
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+        'verbose': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+        'colored': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s',
+            'log_colors': {
+                'DEBUG': 'cyan',
+                'INFO': 'green',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
+            },
+        },
+    },
+    
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'product_app/erro_log.txt',
+            'formatter': 'verbose',
+        },
+       
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    
+    'loggers': {
+        'product_app': {
+            'handlers': ['file' , ],  # Attach both console handlers
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+}

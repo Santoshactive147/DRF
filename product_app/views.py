@@ -1,23 +1,46 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from django.contrib.auth.models import User
 from .models import * 
-from .serializer import ProductSerializer,RegisterUserSerializer
+from .serializer import ProductSerializer,RegisterUserSerializer,ProductDetailSerializer,ListUserSerializer
 from rest_framework.views import APIView 
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
 
 # Create your views here.
 
 from rest_framework.permissions import IsAuthenticated
-class ProductViewSet(viewsets.ModelViewSet):
 
+
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = ListUserSerializer
+    permission_classes = [AllowAny]
+
+
+   
+
+
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
     
 
+class ProductCreateDetailView(generics.ListCreateAPIView):
+    queryset = ProductDetail.objects.all()
+    serializer_class = ProductDetailSerializer
+    permission_classes = [IsAuthenticated]
 
+
+class ProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductDetail.objects.all()
+    serializer_class = ProductDetailSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # # Step 2: Create the RegisterUserView class for handling registration requests
@@ -101,3 +124,30 @@ def my_view(request):
         # Log the error with exception details
         logger.error("An error occurred: %s", e, exc_info=True)
         return HttpResponse("An error occurred, check the logs for details.", status=500)
+
+
+from django.utils.dateparse import parse_date
+import logging
+class ProductDateRange(APIView):
+
+    def get(self,request,*args,**kwargs):
+
+        from_date_str = request.query_params.get('from_date')
+        to_date_str = request.query_params.get('to_date')
+       
+
+        logger = logging.getLogger('product_app')
+        logger.debug('This is a test DEBUG log message.')
+        logger.info('hello this is info ',from_date_str)
+
+
+        if not from_date_str or not to_date_str:
+            return Response({"error": "Both 'from_date' and 'to_date' are required."}, status=status.HTTP_400_BAD_REQUEST)
+        from_date = parse_date(from_date_str)
+        to_date = parse_date(to_date_str)
+        if not from_date or not to_date:
+            return Response({"error": "Invalid date format. Please use 'YYYY-MM-DD'."}, status=status.HTTP_400_BAD_REQUEST)
+
+        products = Product.objects.filter(created_at__gte=from_date, created_at__lte=to_date)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

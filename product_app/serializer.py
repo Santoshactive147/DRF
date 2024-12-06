@@ -30,10 +30,7 @@
 from rest_framework import serializers
 from .models import Product, ProductDetail
 
-class ProductDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductDetail
-        fields = ['id', 'product', 'warranty_period', 'specifications', 'weight', 'manufacturer']
+
 
 class ProductSerializer(serializers.ModelSerializer):
     # Using SerializerMethodField to get manufacturer from the related ProductDetail
@@ -50,6 +47,12 @@ class ProductSerializer(serializers.ModelSerializer):
         return None  # If no ProductDetail exists, return None
 
 
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    class Meta:
+        model = ProductDetail
+        fields = ['id',  'warranty_period', 'specifications', 'weight', 'manufacturer','product']
 
 
 
@@ -92,3 +95,10 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         )
         return user
 
+
+
+class ListUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = "__all__"
